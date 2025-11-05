@@ -19,6 +19,7 @@ from django.urls import path
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.shortcuts import redirect
+from bookmark import views
 
 movie_list = [
     {'title': '파묘', 'director': '장재현'},
@@ -35,7 +36,7 @@ def book_list(request):
     # for i in range(0, 10):
     #     book_text += f'book {i}<br>'
 
-    return render(request, 'book_list.html', {'range': range(0,10)})
+    return render(request, 'book_list.html', {'range': range(0, 10)})
 
 def book(request, num):
     return render(request, 'book_detail.html', {'num':num})
@@ -57,7 +58,7 @@ def movies(request):
     #
     # return HttpResponse(response_text)
 
-    return render(request,'movies.html', {'movie_list': movie_list})
+    return render(request, 'movies.html', {'movie_list': movie_list})
 
 def movie_detail(request, index):
     if index > len(movie_list) - 1:
@@ -80,12 +81,14 @@ def gugu(request, num):
     return render(request, 'gugu.html', context)
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index),
-    path('book_list/', book_list),
-    path('book_list/<int:num>/', book),
-    path('language/<str:lang>/', language),
-    path('movie/', movies),
-    path('movie/<int:index>/', movie_detail),
-    path('gugu/<int:num>/', gugu),
+    # path('', index),
+    # path('book_list/', book_list),
+    # path('book_list/<int:num>/', book),
+    # path('language/<str:lang>/', language),
+    # path('movie/', movies),
+    # path('movie/<int:index>/', movie_detail),
+    # path('gugu/<int:num>/', gugu),
+    path('bookmark/', views.bookmark_list),
+    path('bookmark/<int:pk>/', views.bookmark_detail),
 ]
 
